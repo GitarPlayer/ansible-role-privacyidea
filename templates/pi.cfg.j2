@@ -1,0 +1,68 @@
+# The realm, where users are allowed to login as administrators
+SUPERUSER_REALM = '{{ superuser_realm }}'
+# Your database
+SQLALCHEMY_DATABASE_URI = '{{ sqlalchemy_database_uri }}'
+# Set maximum identifier length to 128
+{%if sqlalchemy_engine_options is defined %}
+SQLALCHEMY_ENGINE_OPTIONS = {{ sqlalchemy_engine_options }}
+{%else %}
+# SQLALCHEMY_ENGINE_OPTIONS = {"max_identifier_length": 128}
+{%endif %}
+# This is used to encrypt the auth_token
+SECRET_KEY = '{{ secret_key }}'
+# This is used to encrypt the admin passwords
+PI_PEPPER = '{{ pi_pepper }}'
+# This is used to encrypt the token data and token passwords
+PI_ENCFILE = '{{ pi_encfile }}'
+# This is used to sign the audit log
+PI_AUDIT_KEY_PRIVATE = '{{ pi_audit_key_private }}'
+PI_AUDIT_KEY_PUBLIC = '{{ pi_audit_key_public }}'
+
+{%if pi_audit_module is defined %}
+PI_AUDIT_MODULE = '{{ pi_audit_module }}'
+{%else %}
+# PI_AUDIT_MODULE = <python audit module>
+{%endif %}
+
+{%if pi_audit_sql_uri is defined %}
+PI_AUDIT_SQL_URI = '{{ pi_audit_sql_uri }}'
+{%else %}
+# PI_AUDIT_SQL_URI = <special audit log DB uri>
+{%endif %}
+
+# Truncate Audit entries to fit into DB columns
+PI_AUDIT_SQL_TRUNCATE = '{{ pi_audit_sql_truncate }}'
+
+{%if pi_logfile is defined %}
+PI_LOGFILE = '{{ pi_logfile }}'
+{%else %}
+# PI_LOGFILE = '....'
+{%endif %}
+
+{%if pi_loglevel is defined %}
+PI_LOGLEVEL = '{{ pi_loglevel }}'
+{%else %}
+# PI_LOGLEVEL = 20
+{%endif %}
+
+{%if pi_init_check_hook is defined %}
+PI_INIT_CHECK_HOOK = '{{ pi_init_check_hook }}'
+{%else %}
+# PI_INIT_CHECK_HOOK = 'your.module.function'
+{%endif %}
+
+{%if pi_css is defined %}
+PI_CSS = '{{ pi_css }}'
+{%else %}
+# PI_CSS = '/location/of/theme.css'
+{%endif %}
+
+{%if pi_ui_deactivated is defined %}
+PI_UI_DEACTIVATED = '{{ pi_ui_deactivated }}'
+{%else %}
+# PI_UI_DEACTIVATED = True
+{%endif %}
+
+{% if extra_parameters is defined %}
+{{ extra_parameters | indent(width=2, first=True) }}
+{% endif %}

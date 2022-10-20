@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  role_name: privacyidea
+  author: gitarplayer
+  description: PrivacyIDEA installation for RHEL.
+  company: ""
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+        - 9
+  galaxy_tags:
+    - development
+    - mfa
+    - yubico
+    - token
+
+dependencies: 
+  - role: linux-system-roles.firewall
+    vars:
+      firewall:
+        - service: https
+          state: enabled
+  - role: geerlingguy.apache
+  - role: linux-system-roles.selinux

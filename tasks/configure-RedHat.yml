@@ -1,0 +1,113 @@
+---
+- name: Ensure directories exist
+  file:
+    state: directory
+    path: "{{ item }}"
+  loop: 
+    - "{{ pi_venv_path }}"
+    - "{{ pi_conf_path }}"
+    - "{{ pi_log_path }}"
+- name: Ensure {{ pi_linux_user }} user exists
+  user:
+    name: "{{ pi_linux_user }}"
+    home: "{{ pi_venv_path }}"
+    system: yes
+- name: Ensure permission and ownership of directories
+  file:
+    state: directory
+    owner: "{{ pi_linux_user }}"
+    group: "apache"
+    path: "{{ item }}"
+    recurse: yes
+  loop:
+    - "{{ pi_venv_path }}"
+    - "{{ pi_conf_path }}"
+    - "{{ pi_log_path }}"
+- name: template privacyideaapp.wsgi to {{ pi_conf_path }}
+  template:
+    src: privacyideaapp.wsgi.j2
+    dest: "{{ pi_conf_path }}/privacyideaapp.wsgi"
+    mode: 0640
+    owner: "{{ pi_linux_user }}"
+    group: "apache"
+- name: stat {{ pi_venv_path }}/requirements.txt
+  stat:
+    path: "{{ pi_venv_path }}/requirements.txt"
+  register: requirements_stat
+  ignore_errors: yes
+- name: Get requirements.txt for {{ pi_version }}
+  get_url:
+    url: https://raw.githubusercontent.com/privacyidea/privacyidea/v{{ pi_version }}/requirements.txt
+    dest: "{{ pi_venv_path }}/requirements.txt"
+    mode: 0640
+    owner: "{{ pi_linux_user }}"
+    group: "{{ apache }}"
+  when: not requirements_stat.stat.exists
+- name: Ensure {{ python_package_name }} is installed
+  yum:
+    name: "@{{ python_package_name }}"
+    state: present
+- name: install pexpect for expect module and mod_wsgi matching {{ python_package_name }}
+  yum:
+    name: 
+      - python3-pexpect 
+      - "{{ python_package_name }}-mod_wsgi"
+    state: present
+- name: Install privacyIDEA requirements in {{ pi_venv_path }}
+  become_user: "{{ pi_linux_user }}"
+  pip:
+    requirements: "{{ pi_venv_path }}/requirements.txt"
+    virtualenv: "{{ pi_venv_path }}"
+    virtualenv_command: '{{ python_binary_name }} -m venv'
+- name: Install privacyidea=={{ pi_version }}
+  become_user: "{{ pi_linux_user }}"
+  pip:
+    name: privacyidea=={{ pi_version }}
+    virtualenv: "{{ pi_venv_path }}"
+    virtualenv_command: '{{ python_binary_name }} -m venv'
+- name: create enckey
+  become_user: "{{ pi_linux_user }}"
+  command: "{{ pi_venv_path }}/bin/pi-manage create_enckey"
+  args: 
+    creates: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/enckey"
+- name: create audit_keys
+  become_user: "{{ pi_linux_user }}"
+  command: "{{ pi_venv_path }}/bin/pi-manage create_audit_keys"
+  args:
+    creates: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/public.pem"
+- name: setfact for pi_encfile, pi_audit_key_private, pi_audit_key_public
+  set_fact:
+    pi_encfile: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/enckey"
+    pi_audit_key_private: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/private.pem"
+    pi_audit_key_public: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/public.pem"
+- name: template {{ pi_conf_path }}/pi.cfg
+  template:
+    src: pi.cfg.j2
+    dest: "{{ pi_conf_path }}/pi.cfg"
+    mode: 0640
+    owner: "{{ pi_linux_user }}"
+    group: "{{ pi_linux_user }}"
+- name: create the database structure
+  become_user: "{{ pi_linux_user }}"
+  command: "{{ pi_venv_path }}/bin/pi-manage createdb"
+  args:
+    creates: "{{ pi_venv_path }}/lib/privacyidea/migrations/versions"
+- name: stamp the db
+  become_user: "{{ pi_linux_user }}"
+  command: "{{ pi_venv_path }}/bin/pi-manage db stamp head -d {{ pi_venv_path }}/lib/privacyidea/migrations/"
+  args:
+    creates: "{{ pi_venv_path }}/lib/privacyidea/migrations/versions"
+- name: check if admin account already exists
+  become_user: "{{ pi_linux_user }}"
+  command: "{{ pi_venv_path }}/bin/pi-manage admin list"
+  ignore_errors: yes
+  changed_when: false
+  register: pi_manage_list_command
+- name: setup admin account
+  become_user: "{{ pi_linux_user }}"
+  expect:
+    command: "{{ pi_venv_path }}/bin/pi-manage admin add {{ pi_admin }}"
+    responses:
+      Password: "{{ pi_admin_pass }}"
+      Confirm: "{{ pi_admin_pass }}"
+  when: pi_admin not in pi_manage_list_command.stdout 

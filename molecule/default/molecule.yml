@@ -1,0 +1,40 @@
+---
+role_name_check: 1
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider: 
+    name: virtualbox
+    provision: no
+platforms:
+  - name: AlmaLinux 8
+    # If specified, set host name to hostname, unless it's set to False and
+    # the host name won't be set. In all other cases (including default) use
+    # 'name' as host name.
+    hostname: ansible.example.com
+    # List of dictionaries mapped to `config.vm.network`
+    interfaces:
+      # `network_name` is the required identifier, all other keys map to
+      # arguments.
+      - network_name: private_network
+        ip: 192.168.123.3
+    # List of raw Vagrant `config` options
+    instance_raw_config_args:
+      # use single quotes to avoid YAML parsing as dict due to ':'
+      # Run 'uname' a provisionning step **needs 'provision: true' to work**
+      - 'vm.provision :shell, inline: "uname"'
+    # Dictionary of `config` options. Note that string values need to be
+    # explicitly enclosed in quotes.
+    config_options:
+      ssh.keep_alive: yes
+      ssh.remote_user: 'vagrant'
+    box: almalinux/8
+    box_version: latest
+    box_url:
+    memory: 512
+    cpus: 1
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
