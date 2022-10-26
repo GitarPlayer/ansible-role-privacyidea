@@ -1,5 +1,5 @@
 ---
-name: Linting
+name: CI
 'on':
   pull_request:
   push:
@@ -37,14 +37,15 @@ jobs:
           yamllint .
           ansible-lint
 
-  molecule:
+ molecule:
     name: Molecule
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         distro:
+          - almalinux/7 # RHEL7 is EoL so we should not support it
           - almalinux/8
-#          - almalinux/9 python38 is not available yet and might never be 
+#          - almalinux/9 python38 is not available yet there and might never be?
 #            maybe we could compile it from source or just wait?
     steps:
       - name: Check out the codebase.
@@ -52,16 +53,25 @@ jobs:
         with:
           path: 'gitarplayer.privacyidea'
 
-      - name: Install pythons for to
-        run:  sudo add-apt-repository ppa:deadsnakes/ppa -y && sudo apt-get update -y && sudo apt-get install -y python3.7 python3.7-distutils python3.8 python3.8-distutils python3.9 python3.9-distutils python3.10 python3.10-distutils
+      - name: Cache Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
+
+      - name: Install pythons for tox
+        run:  brew install python@3.7 python@3.8 python@3.9 python@3.10
 
       - name: Install tox-ansible
-        run: pip3 install tox-ansible tox
+        run: pip3 install tox-ansible
 
       - name: Run molecule tests against ansible 6.x and python >= 3.7
         run: tox
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+          TOX_SKIP_ENV: '.*lint_all$'
           VAGRANT_BOX: ${{ matrix.distro }}
-          TOX_TESTENV_PASSENV: VAGRANT_BOX 
+          TOX_TESTENV_PASSENV: VAGRANT_BOX TOX_SKIP_ENV
