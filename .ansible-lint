@@ -1,3 +1,6 @@
 ---
 exclude_paths:
-  - molecule/default/converge.yml 
+  - molecule/default/converge.yml # The ansible syntax-check looks for roles needed for testing but they are not installed at the linting stage yet 
+  - molecule/default/prepare.yml # The ansible syntax-check looks for roles needed for testing but they are not installed at the linting stage yet 
+
+      
