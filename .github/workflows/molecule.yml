@@ -48,5 +48,6 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
+          TOX_SKIP_ENV: '.*lint_all$'
           VAGRANT_BOX: ${{ matrix.distro }}
-          TOX_TESTENV_PASSENV: VAGRANT_BOX 
+          TOX_TESTENV_PASSENV: VAGRANT_BOX TOX_SKIP_ENV
