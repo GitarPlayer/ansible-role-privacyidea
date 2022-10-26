@@ -33,6 +33,7 @@ jobs:
 
       - name: Lint code.
         run: |
+          ls -lahrt
           set -e
           yamllint .
           ansible-lint
