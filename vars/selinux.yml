@@ -1,9 +1,0 @@
----
-# Use "targeted" SELinux policy type
-selinux_policy: targeted
-# Set "enforcing" mode
-selinux_state: enforcing
-# Switch some SELinux booleans
-selinux_booleans:
-  # Set the 'httpd_can_network_connect_db' boolean to 'on' permanently
-  - { name: 'httpd_can_network_connect_db', state: 'on', persistent: 'yes' }

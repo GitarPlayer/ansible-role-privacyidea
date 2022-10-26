@@ -1,0 +1,14 @@
+--- 
+- name: Configure db for role testing
+  hosts: mysql
+  become: yes
+  roles:
+    - role: geerlingguy.mysql
+      vars:
+        mysql_databases:
+          - name: 'pi'
+        mysql_users: 
+          - name: 'pi'
+            host: '%'
+            password: 'encryptme'
+            priv: 'pi.*:ALL'

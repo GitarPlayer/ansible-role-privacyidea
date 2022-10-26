@@ -1,6 +1,5 @@
 ---
 apache_vhosts_filename: "privacyidea.conf"
-apache_remove_default_vhost: true
 apache_global_vhost_settings: |
   TraceEnable off
   ServerSignature Off
@@ -9,7 +8,7 @@ apache_global_vhost_settings: |
   WSGISocketPrefix /var/run/wsgi
 apache_ssl_cipher_suite: "EECDH+AES256:DHE+AES256:EECDH+AES:EDH+AES:-SHA1:EECDH+RC4:EDH+RC4:RC4-SHA:AES256-SHA:!aNULL:!eNULL:!EXP:!LOW:!MD5"
 apache_vhosts_ssl:
-  - servername: "ansible1.example.com"
+  - servername: "privacyidea"
     documentroot: "/etc/privacyidea"
     certificate_file: "/etc/pki/tls/certs/localhost.crt"
     certificate_key_file: "/etc/pki/tls/private/localhost.key"
@@ -30,4 +29,4 @@ apache_vhosts_ssl:
          nokeepalive ssl-unclean-shutdown \
          downgrade-1.0 force-response-1.0
       CustomLog logs/ssl_request_log \
-          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b" 
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"

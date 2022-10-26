@@ -1,0 +1,4 @@
+---
+firewall:
+  - service: https
+    state: enabled

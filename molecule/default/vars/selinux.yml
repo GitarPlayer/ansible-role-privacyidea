@@ -1,0 +1,18 @@
+---
+# Use "targeted" SELinux policy type
+selinux_policy: targeted
+# Set "enforcing" mode
+selinux_state: enforcing
+# Switch some SELinux booleans
+selinux_booleans:
+  # Set the 'httpd_can_network_connect_db' boolean to 'on' permanently
+  - { name: 'httpd_can_network_connect_db', state: 'on', persistent: 'yes' }
+  - { name: 'httpd_can_connect_ldap', state: 'on', persistent: 'yes' }
+selinux_fcontexts:
+  - { target: '{{ pi_log_path }}(/.*)?', setype: 'httpd_log_t', ftype: 'a' }
+#  - { target: '{{ pi_venv_path }}(/.*)?', setype: 'httpd_log_t', ftype: 'a' } # default log is at /opt/privacyidea/privacyidea.log
+  - { target: '{{ pi_conf_path }}(/.*)?', setype: 'httpd_config_t', ftype: 'a' }
+selinux_restore_dirs:
+  - "{{ pi_log_path }}"
+#  - "{{ pi_venv_path }}"
+  - "{{ pi_conf_path }}"

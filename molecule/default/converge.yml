@@ -1,19 +1,20 @@
 ---
 - name: Converge
-  hosts: all
-
-  vars:
-    nginx_use_ppa: true
-    nginx_remove_default_vhost: true
-    nginx_vhosts:
-      - server_name: "test.dev"
-        root: "/var/www/test"
-
-  pre_tasks:
-    - name: Update apt cache.
-      apt: update_cache=yes cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
-  roles:
-    - role: gitarplayer.privacyidea
+  hosts: privacyidea
+  become: yes
+  vars_files:
+    - vars/selinux.yml
+    - vars/firewall.yml
+  roles: 
+    - geerlingguy.apache 
+    - role: ansible-role-privacyidea 
+      vars:
+        pi_db_hostname: 192.168.56.3
+    - linux-system-roles.selinux
+    - linux-system-roles.firewall
+  tasks:
+    - name: include apache.yml
+      include_vars: vars/apache.yml
+    - name: apply geerlingguy.apache again with vars because of chicken egg problem
+      include_role:
+        name: geerlingguy.apache

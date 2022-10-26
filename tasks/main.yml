@@ -1,58 +1,26 @@
 ---
 # Include variables and define needed variables.
-- name: Include variables for SELinux
-  include_vars: "selinux.yml"
-- name: Assert that required vars are set
-  assert:
-    that:
-      - pi_db_secret is defined
-      - pi_db_hostname is defined
-      - secret_key is defined
-      - pi_pepper is defined
-      - pi_admin is defined
-      - pi_admin_pass is defined
-    msg: "Not all required vars have been set"
 - name: Assert that python_version is supported
-  assert:
+  ansible.builtin.assert:
     that:
       - python_version is defined
       - python_version in supported_python_versions
     msg: "{{ python_version }} is not in {{ supported_python_versions }}"
 - name: Define python_package_name
-  set_fact:
+  ansible.builtin.set_fact:
     python_binary_name: 'python{{ python_version }}'
-    python_package_name: 'python{{ python_version | regex_replace("(\d)\.(\d)", "\1\2" ) }}'
-
-- name: Define fcontext for SELinux
-  set_fact:
-    selinux_fcontexts:
-      - { target: '{{ pi_log_path }}(/.*)?', setype: 'httpd_sys_rw_content_t', ftype: 'd' }
-    selinux_restore_dirs:
-      - "{{ pi_log_path }}"
-- name: Define vars depending if use_ldap_resolver true
-  set_fact:
-    selinux_booleans_to_add: 
-      - { name: 'httpd_can_connect_ldap', state: 'on', persistent: 'yes' }
-  when: use_ldap_resolver
-- name: merge selinux_booleans and selinux_booleans_to_add
-  set_fact:
-    selinux_booleans: "{{ selinux_booleans + selinux_booleans_to_add }}"
-  when: use_ldap_resolver
+    python_package_name: python{{ python_version | regex_replace("(\d)\.(\d)", "\1\2") }}
 
 - name: Define vars depending if separate_db true
-  set_fact:
-    sqlalchemy_database_uri: "{{ sqlalchemy_database_uri_start + pi_db_user}}:{{ pi_db_secret + '@' + pi_db_hostname}}/pi" 
+  ansible.builtin.set_fact:
+    sqlalchemy_database_uri: "{{ sqlalchemy_database_uri_start + pi_db_user }}:{{ pi_db_secret + '@' + pi_db_hostname }}/pi" 
   when: separate_db
 
 - name: Define vars depending if separate_db false
-  set_fact:
-    sqlalchemy_database_uri: "{{ sqlalchemy_database_uri_start + pi_db_user}}:{{ pi_db_secret + '@' + ansible_facts['fqdn']}}/pi" 
+  ansible.builtin.set_fact:
+    sqlalchemy_database_uri: "{{ sqlalchemy_database_uri_start + pi_db_user }}:{{ pi_db_secret + '@' + ansible_facts['fqdn'] }}/pi" 
   when: not separate_db
+
 # Configure PrivacyIDEA.
 - name: Configure PrivacyIDEA.
-  include_tasks: "configure-{{ ansible_os_family }}.yml"
-
-# Configure SELinux
-- name: Configure SELinux
-  include_tasks: selinux.yml
-
+  ansible.builtin.include_tasks: "configure-{{ ansible_os_family }}.yml"

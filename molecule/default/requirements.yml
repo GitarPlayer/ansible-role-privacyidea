@@ -1,0 +1,7 @@
+---
+roles:
+  # Install a role from Ansible Galaxy.
+  - name: geerlingguy.mysql
+  - name: geerlingguy.apache
+  - name: linux-system-roles.firewall
+  - name: linux-system-roles.selinux

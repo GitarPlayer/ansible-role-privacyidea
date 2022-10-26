@@ -1,0 +1,8 @@
+---
+mysql_databases:
+  - name: 'pi'
+mysql_users: 
+  - name: 'pi'
+    host: '%'
+    password: 'password'
+    priv: 'pi.*:ALL'

@@ -29,11 +29,13 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint
+        run: pip3 install yamllint ansible-lint
 
       - name: Lint code.
         run: |
+          set -e
           yamllint .
+          ansible-lint
 
   molecule:
     name: Molecule
@@ -41,28 +43,25 @@ jobs:
     strategy:
       matrix:
         distro:
-          - rockylinux8
-          - ubuntu2004
-          - ubuntu1804
-          - debian10
-
+          - almalinux/8
+#          - almalinux/9 python38 is not available yet and might never be 
+#            maybe we could compile it from source or just wait?
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
           path: 'gitarplayer.privacyidea'
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+      - name: Install pythons for to
+        run:  sudo add-apt-repository ppa:deadsnakes/ppa -y && apt-get update -y && apt-get install -y python3.7 python3.7-distutils python3.8 python3.8-distutils python3.9 python3.9-distutils python3.10 python3.10-distutils
 
-      - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker
+      - name: Install tox-ansible
+        run: pip3 install tox-ansible tox
 
-      - name: Run Molecule tests.
-        run: molecule test
+      - name: Run molecule tests against ansible 6.x and python >= 3.7
+        run: tox
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+          VAGRANT_BOX: ${{ matrix.distro }}
+          TOX_TESTENV_PASSENV: VAGRANT_BOX 
