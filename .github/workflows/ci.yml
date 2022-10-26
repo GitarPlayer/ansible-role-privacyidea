@@ -38,7 +38,7 @@ jobs:
           yamllint .
           pwd
           ls -lahrt
-          ansible-lint -vvvv
+          ansible-lint -vvvv -C .ansible-lint
 
   molecule:
     name: Molecule
