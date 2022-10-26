@@ -33,12 +33,9 @@ jobs:
 
       - name: Lint code.
         run: |
-          ls -lahrt
           set -e
           yamllint .
-          pwd
-          ls -lahrt
-          ansible-lint -vvvv -c .ansible-lint
+          ansible-lint
 
   molecule:
     name: Molecule
@@ -56,7 +53,7 @@ jobs:
           path: 'gitarplayer.privacyidea'
 
       - name: Install pythons for to
-        run:  sudo add-apt-repository ppa:deadsnakes/ppa -y && apt-get update -y && apt-get install -y python3.7 python3.7-distutils python3.8 python3.8-distutils python3.9 python3.9-distutils python3.10 python3.10-distutils
+        run:  sudo add-apt-repository ppa:deadsnakes/ppa -y && sudo apt-get update -y && sudo apt-get install -y python3.7 python3.7-distutils python3.8 python3.8-distutils python3.9 python3.9-distutils python3.10 python3.10-distutils
 
       - name: Install tox-ansible
         run: pip3 install tox-ansible tox
