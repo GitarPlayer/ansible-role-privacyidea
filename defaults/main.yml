@@ -3,11 +3,11 @@
 pi_venv_path: "/opt/privacyidea"
 pi_conf_path: "/etc/privacyidea"
 pi_log_path: "/var/log/privacyidea"
-pi_version: '3.7.3'
+pi_version: "3.7.3"
 python_version: 3.8
 pi_linux_user: "privacyidea"
 separate_db: true
-use_ldap_resolver: true
+
 # db vars
 pi_db_user: "pi"
 pi_db_secret: "encryptme"
@@ -18,18 +18,15 @@ websrv_user: 'apache'
 
 # privacyidea config file
 superuser_realm: '["super", "administrators"]'
-sqlalchemy_database_uri_start:  'mysql+pymysql://' #pi:dbpass@ansible2.example.com/pi'
 sqlalchemy_engine_options:  '{"max_identifier_length": 128}'
-secret_key:  "encryptme"
-pi_pepper: "encrpyme" 
-pi_audit_module:  "privacyidea.lib.auditmodules.loggeraudit"
 pi_audit_sql_uri:  ''
 pi_audit_sql_truncate: 'True'
 pi_logfile:  '/var/log/privacyidea/privacyidea.log'
+secret_key:  "encryptme"
+pi_pepper: "encrpyme" 
 extra_parameters: ''
+
 # privacy local admin 
 pi_admin: 'encryptme'
 pi_admin_pass: 'encryptme'
 
-# webserver vars
-web_user: 'apache'

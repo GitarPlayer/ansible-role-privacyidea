@@ -3,6 +3,6 @@ mysql_databases:
   - name: 'pi'
 mysql_users: 
   - name: 'pi'
-    host: '%'
+    host: '192.168.56.2'
     password: 'password'
     priv: 'pi.*:ALL'
