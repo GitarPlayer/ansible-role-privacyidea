@@ -1,6 +1,6 @@
 ---
 name: CI
-'on':
+on:
   pull_request:
   push:
     branches:
@@ -37,7 +37,7 @@ jobs:
           yamllint .
           ansible-lint
 
- molecule:
+  molecule:
     name: Molecule
     runs-on: macos-10.15
     strategy:
