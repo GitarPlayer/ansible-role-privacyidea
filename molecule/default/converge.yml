@@ -7,7 +7,7 @@
     - vars/firewall.yml
   roles: 
     - geerlingguy.apache 
-    - role: ansible-role-privacyidea 
+    - role: gitarplayer.privacyidea
       vars:
         pi_db_hostname: 192.168.56.3
     - linux-system-roles.selinux
