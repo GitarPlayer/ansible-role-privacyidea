@@ -36,7 +36,9 @@ jobs:
           ls -lahrt
           set -e
           yamllint .
-          ansible-lint
+          pwd
+          ls -lahrt
+          ansible-lint -vvvv
 
   molecule:
     name: Molecule

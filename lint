@@ -1,0 +1,777 @@
+DEBUG    Logging initialized to level 10
+DEBUG    Options: Namespace(cache_dir='/home/tux/.cache/ansible-compat/0aa8ad', colored=False, configured=True, cwd=PosixPath('/home/tux/Documents/roles/ansible-role-privacyidea'), display_relative_path=True, exclude_paths=['/home/tux/Documents/roles/ansible-role-privacyidea/molecule/default/converge.yml'], format='rich', lintables=[], listrules=False, listtags=False, write_list=[], parseable=False, quiet=False, rulesdirs=['/home/tux/Documents/3.8.10_molecule/lib/python3.10/site-packages/ansiblelint/rules'], skip_list=[], tags=[], verbosity=4, warn_list=['avoid-implicit', 'experimental', 'fqcn[action]', 'fqcn[redirect]', 'jinja[spacing]', 'name[casing]', 'name[play]', 'role-name', 'warning[empty-playbook]'], kinds=[{'jinja2': '**/*.j2'}, {'jinja2': '**/*.j2.*'}, {'yaml': '.github/**/*.{yaml,yml}'}, {'text': '**/templates/**/*.*'}, {'execution-environment': '**/execution-environment.yml'}, {'ansible-lint-config': '**/.ansible-lint'}, {'ansible-lint-config': '**/.config/ansible-lint.yml'}, {'ansible-navigator-config': '**/ansible-navigator.{yaml,yml}'}, {'inventory': '**/inventory/**.{yaml,yml}'}, {'requirements': '**/meta/requirements.{yaml,yml}'}, {'galaxy': '**/galaxy.yml'}, {'reno': '**/releasenotes/*/*.{yaml,yml}'}, {'tasks': '**/tasks/**/*.{yaml,yml}'}, {'playbook': '**/playbooks/*.{yml,yaml}'}, {'playbook': '**/*playbook*.{yml,yaml}'}, {'role': '**/roles/*/'}, {'handlers': '**/handlers/*.{yaml,yml}'}, {'vars': '**/{host_vars,group_vars,vars,defaults}/**/*.{yaml,yml}'}, {'test-meta': '**/tests/integration/targets/*/meta/main.{yaml,yml}'}, {'meta': '**/meta/main.{yaml,yml}'}, {'meta-runtime': '**/meta/runtime.{yaml,yml}'}, {'arg_specs': '**/meta/argument_specs.{yaml,yml}'}, {'yaml': '.config/molecule/config.{yaml,yml}'}, {'requirements': '**/molecule/*/{collections,requirements}.{yaml,yml}'}, {'yaml': '**/molecule/*/{base,molecule}.{yaml,yml}'}, {'requirements': '**/requirements.{yaml,yml}'}, {'playbook': '**/molecule/*/*.{yaml,yml}'}, {'yaml': '**/{.ansible-lint,.yamllint}'}, {'yaml': '**/*.{yaml,yml}'}, {'yaml': '**/.*.{yaml,yml}'}], mock_filters=[], mock_modules=[], mock_roles=[], loop_var_prefix=None, var_naming_pattern=None, offline=False, project_dir='.', extra_vars=None, enable_list=[], skip_action_validation=True, strict=False, rules={}, profile=None, progressive=False, rulesdir=[], use_default_rules=False, config_file='/home/tux/Documents/roles/ansible-role-privacyidea/.ansible-lint', version=False, cache_dir_lock=<filelock._unix.UnixFileLock object at 0x7f45a63a2a70>)
+DEBUG    /home/tux/Documents/roles/ansible-role-privacyidea
+INFO     Set ANSIBLE_LIBRARY=/home/tux/.cache/ansible-compat/0aa8ad/modules:/home/tux/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/tux/.cache/ansible-compat/0aa8ad/collections:/home/tux/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/tux/.cache/ansible-compat/0aa8ad/roles:/home/tux/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Using /home/tux/.cache/ansible-compat/0aa8ad/roles/gitarplayer.privacyidea symlink to current repository in order to enable Ansible to find the role using its expected full name.
+DEBUG    Loading custom .yamllint config file, this extends our internal yamllint config.
+DEBUG    Effective yamllint rules used: {'braces': {'level': 'error', 'forbid': False, 'min-spaces-inside': 0, 'max-spaces-inside': 1, 'min-spaces-inside-empty': -1, 'max-spaces-inside-empty': -1}, 'brackets': {'level': 'error', 'forbid': False, 'min-spaces-inside': 0, 'max-spaces-inside': 1, 'min-spaces-inside-empty': -1, 'max-spaces-inside-empty': -1}, 'colons': {'level': 'error', 'max-spaces-before': 0, 'max-spaces-after': -1}, 'commas': {'level': 'error', 'max-spaces-before': 0, 'min-spaces-after': 1, 'max-spaces-after': -1}, 'comments': False, 'comments-indentation': False, 'document-end': False, 'document-start': False, 'empty-lines': {'level': 'error', 'max': 3, 'max-start': 0, 'max-end': 0}, 'empty-values': False, 'float-values': False, 'hyphens': {'level': 'error', 'max-spaces-after': 1}, 'indentation': False, 'key-duplicates': {'level': 'error'}, 'key-ordering': False, 'line-length': False, 'new-line-at-end-of-file': False, 'new-lines': {'level': 'error', 'type': 'unix'}, 'octal-values': False, 'quoted-strings': False, 'trailing-spaces': False, 'truthy': False}
+INFO     Set ANSIBLE_LIBRARY=/home/tux/.cache/ansible-compat/0aa8ad/modules:/home/tux/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/home/tux/.cache/ansible-compat/0aa8ad/collections:/home/tux/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/home/tux/.cache/ansible-compat/0aa8ad/roles:/home/tux/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Using /home/tux/.cache/ansible-compat/0aa8ad/roles/gitarplayer.privacyidea symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Discovered files to lint using: git ls-files --cached --others --exclude-standard -z
+INFO     Excluded removed files using: git ls-files --deleted -z
+DEBUG    Ignored molecule/default/converge.yml due to: File /home/tux/Documents/roles/ansible-role-privacyidea/molecule/default/converge.yml matched exclusion entry: molecule/default/converge.yml
+INFO     Executing syntax check on molecule/default/prepare.yml (0.70s)
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/setup-Archlinux.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/setup-Debian.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/variables.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/replication.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/users.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/secure-installation.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/setup-RedHat.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/main.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/configure.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/tasks/databases.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/meta/main.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/handlers/main.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/Archlinux.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/Debian-11.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/Debian.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/RedHat-8.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/Debian-10.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/RedHat-7.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/vars/RedHat-9.yml as it is outside of the project directory.
+DEBUG    Skipping /home/tux/.ansible/roles/geerlingguy.mysql/defaults/main.yml as it is outside of the project directory.
+DEBUG    Examining vars/main.yml of type vars
+DEBUG    Examining molecule/default/molecule.yml of type yaml
+DEBUG    Examining molecule/default/vars/mysql.yml of type vars
+DEBUG    Examining molecule/default/vars/selinux.yml of type vars
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    Examining molecule/default/vars/apache.yml of type vars
+DEBUG    Examining tasks/main.yml of type tasks
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'supported_python_versions' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'supported_python_versions' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    VBAR '|' (prefix=' ')
+DEBUG    NAME 'regex_replace' (prefix=' ')
+DEBUG    LPAR '(' (prefix='')
+DEBUG    STRING '"(\\d)\\.(\\d)"' (prefix='')
+DEBUG    COMMA ',' (prefix='')
+DEBUG    STRING '"\\1\\2"' (prefix=' ')
+DEBUG    RPAR ')' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_version' (prefix='')
+DEBUG    VBAR '|' (prefix=' ')
+DEBUG    NAME 'regex_replace' (prefix=' ')
+DEBUG    LPAR '(' (prefix='')
+DEBUG    STRING '"(\\d)\\.(\\d)"' (prefix='')
+DEBUG    COMMA ',' (prefix='')
+DEBUG    STRING '"\\1\\2"' (prefix=' ')
+DEBUG    RPAR ')' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'sqlalchemy_database_uri_start' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_user' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'sqlalchemy_database_uri_start' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_user' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_db_secret' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    STRING "'@'" (prefix=' ')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_hostname' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_db_secret' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    STRING "'@'" (prefix=' ')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_hostname' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'sqlalchemy_database_uri_start' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_user' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'sqlalchemy_database_uri_start' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'pi_db_user' (prefix=' ')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_db_secret' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    STRING "'@'" (prefix=' ')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'ansible_facts' (prefix=' ')
+DEBUG    LSQB '[' (prefix='')
+DEBUG    STRING "'fqdn'" (prefix='')
+DEBUG    RSQB ']' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_db_secret' (prefix='')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    STRING "'@'" (prefix=' ')
+DEBUG    PLUS '+' (prefix=' ')
+DEBUG    NAME 'ansible_facts' (prefix=' ')
+DEBUG    LSQB '[' (prefix='')
+DEBUG    STRING "'fqdn'" (prefix='')
+DEBUG    RSQB ']' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'ansible_os_family' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'ansible_os_family' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    Examining molecule/default/requirements.yml of type requirements
+DEBUG    Examining molecule/default/vars/firewall.yml of type vars
+DEBUG    Examining templates/privacyideaapp.wsgi.j2 of type jinja2
+DEBUG    Examining .yamllint of type yaml
+DEBUG    Examining .github/workflows/ci.yml of type yaml
+DEBUG    Examining .github/stale.yml of type yaml
+DEBUG    Examining tasks/configure-RedHat.yml of type tasks
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'item' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'item' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'websrv_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'websrv_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'websrv_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'websrv_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_log_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'item' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'item' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_package_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_version' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'python_binary_name' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_conf_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_linux_user' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_venv_path' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin_pass' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin_pass' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin_pass' (prefix='')
+DEBUG    NEWLINE '\n' (prefix=' ')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    NAME 'pi_admin_pass' (prefix='')
+DEBUG    NEWLINE '\n' (prefix='')
+DEBUG    ENDMARKER '' (prefix='')
+DEBUG    Stop.
+DEBUG    Examining .github/FUNDING.yml of type yaml
+DEBUG    Examining meta/main.yml of type meta
+DEBUG    Examining molecule/default/prepare.yml of type playbook
+DEBUG    Examining templates/pi.cfg.j2 of type jinja2
+DEBUG    Examining defaults/main.yml of type vars
+DEBUG    Examining .ansible-lint of type ansible-lint-config
+DEBUG    Attempting to release lock 139937118300784 on /home/tux/.cache/ansible-compat/0aa8ad/.lock
+DEBUG    Lock 139937118300784 released on /home/tux/.cache/ansible-compat/0aa8ad/.lock
+
+DEBUG    Determined rule-profile order: {'internal-error': (0, 'min'), 'load-failure': (1, 'min'), 'parser-error': (2, 'min'), 'syntax-check': (3, 'min'), 'command-instead-of-module': (4, 'basic'), 'command-instead-of-shell': (5, 'basic'), 'deprecated-bare-vars': (6, 'basic'), 'deprecated-command-syntax': (7, 'basic'), 'deprecated-local-action': (8, 'basic'), 'deprecated-module': (9, 'basic'), 'inline-env-var': (10, 'basic'), 'key-order': (11, 'basic'), 'literal-compare': (12, 'basic'), 'jinja': (13, 'basic'), 'no-jinja-when': (14, 'basic'), 'no-tabs': (15, 'basic'), 'partial-become': (16, 'basic'), 'playbook-extension': (17, 'basic'), 'role-name': (18, 'basic'), 'schema': (19, 'basic'), 'name': (20, 'basic'), 'var-naming': (21, 'basic'), 'yaml': (22, 'basic'), 'name[template]': (23, 'moderate'), 'name[imperative]': (24, 'moderate'), 'name[casing]': (25, 'moderate'), 'no-free-form': (26, 'moderate'), 'spell-var-name': (27, 'moderate'), 'avoid-implicit': (28, 'safety'), 'latest': (29, 'safety'), 'package-latest': (30, 'safety'), 'risky-file-permissions': (31, 'safety'), 'risky-octal': (32, 'safety'), 'risky-shell-pipe': (33, 'safety'), 'galaxy': (34, 'shared'), 'ignore-errors': (35, 'shared'), 'layout': (36, 'shared'), 'meta-incorrect': (37, 'shared'), 'meta-no-info': (38, 'shared'), 'meta-no-tags': (39, 'shared'), 'meta-video-links': (40, 'shared'), 'meta-version': (41, 'shared'), 'meta-unsupported-ansible': (42, 'shared'), 'no-changed-when': (43, 'shared'), 'no-changelog': (44, 'shared'), 'no-handler': (45, 'shared'), 'no-relative-paths': (46, 'shared'), 'max-block-depth': (47, 'shared'), 'max-tasks': (48, 'shared'), 'unsafe-loop': (49, 'shared'), 'avoid-dot-notation': (50, 'production'), 'disallowed-ignore': (51, 'production'), 'fqcn': (52, 'production'), 'import-task-no-when': (53, 'production'), 'meta-no-dependencies': (54, 'production'), 'single-entry-point': (55, 'production'), 'use-loop': (56, 'production')}
+Passed with production profile: 0 failure(s), 0 warning(s) on 27 files.
