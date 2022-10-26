@@ -1,5 +1,5 @@
 ---
-name: CI
+name: Linting
 'on':
   pull_request:
   push:
