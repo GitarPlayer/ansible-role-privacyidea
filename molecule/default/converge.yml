@@ -10,6 +10,8 @@
     - role: gitarplayer.privacyidea
       vars:
         pi_db_hostname: 192.168.56.3
+        extra_parameters: |
+          PI_UI_DEACTIVATED = False
     - linux-system-roles.selinux
     - linux-system-roles.firewall
   tasks:

@@ -59,13 +59,67 @@ The node that hosts the privacyIDEA database. Could be localhost, the FQDN to th
 
     websrv_user: 'apache'
 
+    pi_logfile: 'privacyidea.log'
+    pi_auditfile: 'audit.log'
+
+The name of the privacyIDEA log/audit file.
+
+    pi_logconfig: 'logging.yml'
+
+The name of the log configuration file.
+
+    use_mail_logging: false
+
+Whether to send certain events via mail.
+
+    mail_host
+
+The mail host.
+
+    from_addr
+
+The host that the mails should be sent from.
+
+    to_addresses
+
+A yaml array of mail addressed to send emails to. For example:
+```yaml
+to_addresses:
+  - fake1@fake.com
+  - fake2@fake.com
+```
+
+    mail_subject
+
+The subject of the mail.
+
+    mail_level
+
+Which priority and above should be sent via mail.
+
+    log_backup_count: 5
+    audit_log_backup_count: 14
+    
+How many log/audit log rotations to keep.
+    
+    log_max_bytes: 1000000
+    audit_log_max_bytes: 10000000
+
+How big a log/audit log should be to trigger log rotation
+
+    log_level: 'INFO'
+    loggers_handlers_level: 'INFO'
+    root_level: 'WARNING'
+
+I have to confirm with PrivacyIDEA what these do exactly.
+
 The username of the webserver user. This user will be added to the pi_linux_user group so the websever process is allowed to read the privacyIDEA files.
 
     superuser_realm: '["super", "administrators"]'
     sqlalchemy_engine_options:  '{"max_identifier_length": 128}'
     pi_audit_sql_uri:  ''
     pi_audit_sql_truncate: 'True'
-    pi_logfile:  '/var/log/privacyidea/privacyidea.log'
+    
 
 Sensible defaults from the privacyIDEA config file. Please consult the privacyIDEA documentation for further information [privacyIDEA DOC](https://privacyidea.readthedocs.io/en/latest/installation/system/inifile.html).
 
@@ -78,7 +132,7 @@ This is used to encrypt the auth_token. Please consider using ansible-vault to n
 This is used to encrypt the admin passwords. Please consider using ansible-vault to not store any unencrypted secrets in your inventory or using HashiCorp Vault.
 
     extra_parameters: |
-      PI_UI_DEACTIVATED = True
+      PI_UI_DEACTIVATED = False
       PI_CSS = '/location/of/theme.css'
 
  (optional: you can add whatever additional configuration lines you'd like in here). This is so there is no need to template every possible privacyIDEA config key possible. 
@@ -94,29 +148,29 @@ The username and password of the local privacyIDEA admin. You can use this crede
 
 None.
 
-## Example Playbook
----
-- name: Converge
-  hosts: privacyidea
-  become: yes
-  vars_files:
-    - vars/selinux.yml
-    - vars/firewall.yml
-  roles: 
-    - geerlingguy.apache 
-    - role: gitarplayer.privacyidea
-      vars:
-        pi_db_hostname: 192.168.56.3
-    - linux-system-roles.selinux
-    - linux-system-roles.firewall
-  tasks:
-    - name: include apache.yml
-      include_vars: vars/apache.yml
-    - name: apply geerlingguy.apache again with vars because of chicken egg problem
-      include_role:
-        name: geerlingguy.apache
+## Example Playbook  
+    ---
+    - name: Converge
+    hosts: privacyidea
+    become: yes
+    vars_files:
+        - vars/selinux.yml
+        - vars/firewall.yml
+    roles: 
+        - geerlingguy.apache 
+        - role: gitarplayer.privacyidea
+        vars:
+            pi_db_hostname: 192.168.56.3
+        - linux-system-roles.selinux
+        - linux-system-roles.firewall
+    tasks:
+        - name: include apache.yml
+        include_vars: vars/apache.yml
+        - name: apply geerlingguy.apache again with vars because of chicken egg problem
+        include_role:
+            name: geerlingguy.apache
 
-*Inside `vars/selinux.yml`*:
+*Inside `vars/selinux.yml`*:  
 
     ---
     # Use "targeted" SELinux policy type
@@ -134,13 +188,13 @@ None.
     - "{{ pi_log_path }}"
     - "{{ pi_conf_path }}"
 
-*Inside `vars/firewall.yml`*:
+*Inside `vars/firewall.yml`*:  
     ---
     firewall:
     - service: https
         state: enabled
 
-*Inside `vars/apache.yml`*:
+*Inside `vars/apache.yml`*:  
     ---
     apache_vhosts_filename: "privacyidea.conf"
     apache_global_vhost_settings: |
@@ -174,7 +228,7 @@ None.
         CustomLog logs/ssl_request_log \
             "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 
-*Inside `vars/mysql.yml`*:
+*Inside `vars/mysql.yml`*:  
     ---
     mysql_databases:
     - name: 'pi'

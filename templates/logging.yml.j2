@@ -1,0 +1,48 @@
+#jinja2: lstrip_blocks: "False"
+version: 1
+formatters:
+  detail:
+    class: privacyidea.lib.log.SecureFormatter
+    format: '[%(asctime)s][%(process)d][%(thread)d][%(levelname)s][%(name)s:%(lineno)d] %(message)s'
+
+handlers:
+  {%if use_mail_logging %}
+  mail:
+    class: logging.handlers.SMTPHandler
+    mailhost: {{ mail_host }}
+    fromaddr: {{ from_addr }}
+    toaddrs:
+    {%for to_addr in  to_addresses %}
+    {{ - to_addr }}
+    {%endfor %}
+    subject: {{ mail_subject}}
+    formatter: detail
+    level: {{ mail_level }}
+  {% endif %}
+  file:
+    class: logging.handlers.RotatingFileHandler
+    backupCount: {{ log_backup_count }}
+    maxBytes: {{ log_max_bytes }}
+    formatter: detail
+    level: {{ log_level }}
+    filename: {{ pi_log_path + '/' + pi_logfile }}
+  audit:
+    class: logging.handlers.RotatingFileHandler
+    backupCount: {{ audit_log_backup_count }}
+    maxBytes: {{ audit_log_max_bytes }}
+    formatter: detail
+    level: INFO # Note, that the level always needs to be INFO
+    filename: {{ pi_log_path + '/' + pi_auditfile }}
+loggers:
+  # The logger name is the qualname
+  privacyidea:
+    handlers:
+    - file
+    {% if use_mail_logging %}
+    - mail
+    {% endif %}
+    - audit
+    level: {{ loggers_handlers_level }}
+root:
+  level: {{ root_level }}
+

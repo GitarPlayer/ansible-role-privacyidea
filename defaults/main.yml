@@ -21,10 +21,22 @@ superuser_realm: '["super", "administrators"]'
 sqlalchemy_engine_options:  '{"max_identifier_length": 128}'
 pi_audit_sql_uri:  ''
 pi_audit_sql_truncate: 'True'
-pi_logfile:  '/var/log/privacyidea/privacyidea.log'
+pi_logfile:  'privacyidea.log'
+pi_auditfile:  'audit.log'
 secret_key:  "encryptme"
 pi_pepper: "encrpyme" 
 extra_parameters: ''
+pi_logconfig: 'logging.yml'
+
+# privacyidea logging
+use_mail_logging: false
+log_backup_count: 5
+log_max_bytes: 1000000
+log_level: 'INFO'
+loggers_handlers_level: 'INFO'
+root_level: 'WARNING'
+audit_log_backup_count: 14
+audit_log_max_bytes: 10000000
 
 # privacy local admin 
 pi_admin: 'encryptme'

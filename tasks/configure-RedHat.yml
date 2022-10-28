@@ -86,13 +86,16 @@
     pi_encfile: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/enckey"
     pi_audit_key_private: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/private.pem"
     pi_audit_key_public: "{{ pi_venv_path }}/lib64/{{ python_binary_name }}/site-packages/public.pem"
-- name: Template pi.cfg
+- name: Template pi.cfg and logging.yml.j2
   ansible.builtin.template:
-    src: pi.cfg.j2
-    dest: "{{ pi_conf_path }}/pi.cfg"
+    src: "{{ item }}"
+    dest: "{{ pi_conf_path }}/{{ item | splitext | first}}" # pi.cfg.j2 -> ['pi.cfg', '.j2'] -> ['pi.cfg']
     mode: 0640
     owner: "{{ pi_linux_user }}"
     group: "{{ pi_linux_user }}"
+  loop:
+    - pi.cfg.j2
+    - logging.yml.j2
 - name: Create the database structure
   become_user: "{{ pi_linux_user }}"
   ansible.builtin.command: "{{ pi_venv_path }}/bin/pi-manage createdb"

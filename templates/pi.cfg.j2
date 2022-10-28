@@ -33,16 +33,10 @@ PI_AUDIT_SQL_URI = '{{ pi_audit_sql_uri }}'
 # Truncate Audit entries to fit into DB columns
 PI_AUDIT_SQL_TRUNCATE = '{{ pi_audit_sql_truncate }}'
 
-{%if pi_logfile is defined %}
-PI_LOGFILE = '{{ pi_logfile }}'
+{%if pi_logconfig is defined %}
+PI_LOGCONFIG = '{{ pi_conf_path + '/' + pi_logconfig }}'
 {%else %}
-# PI_LOGFILE = '....'
-{%endif %}
-
-{%if pi_loglevel is defined %}
-PI_LOGLEVEL = '{{ pi_loglevel }}'
-{%else %}
-# PI_LOGLEVEL = 20
+# PI_LOGCONFIG = '....'
 {%endif %}
 
 {%if pi_init_check_hook is defined %}
@@ -64,5 +58,5 @@ PI_UI_DEACTIVATED = '{{ pi_ui_deactivated }}'
 {%endif %}
 
 {% if extra_parameters is defined %}
-{{ extra_parameters | indent(width=2, first=True) }}
+{{ extra_parameters | indent(width=0, first=True) }}
 {% endif %}
