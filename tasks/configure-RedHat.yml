@@ -89,7 +89,7 @@
 - name: Template pi.cfg and logging.yml.j2
   ansible.builtin.template:
     src: "{{ item }}"
-    dest: "{{ pi_conf_path }}/{{ item | splitext | first}}" # pi.cfg.j2 -> ['pi.cfg', '.j2'] -> ['pi.cfg']
+    dest: "{{ pi_conf_path }}/{{ item | splitext | first }}" # pi.cfg.j2 -> ['pi.cfg', '.j2'] -> ['pi.cfg']
     mode: 0640
     owner: "{{ pi_linux_user }}"
     group: "{{ pi_linux_user }}"

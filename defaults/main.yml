@@ -41,4 +41,3 @@ audit_log_max_bytes: 10000000
 # privacy local admin 
 pi_admin: 'encryptme'
 pi_admin_pass: 'encryptme'
-
