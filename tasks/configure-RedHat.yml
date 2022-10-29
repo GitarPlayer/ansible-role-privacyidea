@@ -51,13 +51,13 @@
   when: not requirements_stat.stat.exists
 - name: Ensure {{ python_package_name }}
   ansible.builtin.yum:
-    name: "@{{ python_package_name }}"
+    name: "{{ python_package_name }}"
     state: present
 - name: Install pexpect for expect module and mod_wsgi matching {{ python_package_name }}
   ansible.builtin.yum:
     name: 
       - python3-pexpect 
-      - "{{ python_package_name }}-mod_wsgi"
+      - "{{ python_mod_wsgi }}"
     state: present
 - name: Install privacyIDEA requirements in {{ pi_venv_path }}
   become_user: "{{ pi_linux_user }}"

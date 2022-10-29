@@ -4,7 +4,7 @@ pi_venv_path: "/opt/privacyidea"
 pi_conf_path: "/etc/privacyidea"
 pi_log_path: "/var/log/privacyidea"
 pi_version: "3.7.3"
-python_version: 3.8
+python_version: 3.9
 pi_linux_user: "privacyidea"
 separate_db: true
 

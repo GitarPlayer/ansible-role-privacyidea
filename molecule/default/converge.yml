@@ -6,7 +6,6 @@
     - vars/selinux.yml
     - vars/firewall.yml
   roles: 
-    - geerlingguy.apache 
     - role: gitarplayer.privacyidea
       vars:
         pi_db_hostname: 192.168.56.3

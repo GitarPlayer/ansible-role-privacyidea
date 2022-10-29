@@ -1,6 +1,7 @@
 ---
 supported_python_versions: 
   - 3.8
+  - 3.9
 
 sqlalchemy_database_uri_start:  'mysql+pymysql://'
 pi_audit_module:  "privacyidea.lib.auditmodules.loggeraudit"

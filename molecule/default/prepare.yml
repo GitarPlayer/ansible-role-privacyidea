@@ -12,3 +12,4 @@
             host: '%'
             password: 'encryptme'
             priv: 'pi.*:ALL'
+    - role: geerlingguy.apache

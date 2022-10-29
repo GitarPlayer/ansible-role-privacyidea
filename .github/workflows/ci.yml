@@ -44,8 +44,8 @@ jobs:
       matrix:
         distro:
           - almalinux/8
-#          - almalinux/9 python38 is not available yet there and might never be?
-#            maybe we could compile it from source or just wait?
+          - almalinux/9
+          
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
@@ -61,7 +61,7 @@ jobs:
             ${{ runner.os }}-vagrant-
 
       - name: Install pythons for tox
-        run:  brew install python@3.7 python@3.8 python@3.9 python@3.10
+        run:  brew install python@3.8 python@3.9 python@3.10
 
       - name: Install tox-ansible
         run: pip3 install tox-ansible

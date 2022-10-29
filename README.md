@@ -29,13 +29,13 @@ The path where the privacyIDEA config files shall be stored.
 
 The path where the privacyIDEA log will be stored. This is not the same as the nginx/apache access and error logs. 
 
-    pi_version: '3.7.3'
+    pi_version: '3.7.4'
 
 The privacyIDEA version that should be installed. 
 
-    python_version: 3.8
+    python_version: 3.9
 
-The python version that should be used to install privacyIDEA. Defaults to 3.8. Supported are [3.6, 3.8]
+The python version that should be used to install privacyIDEA. Defaults to 3.9. Supported are [3.9]
 
     pi_linux_user: "privacyidea"
 
@@ -56,8 +56,6 @@ The password of the aforementioned privacyIDEA database user. Please consider us
     pi_db_hostname: ""
 
 The node that hosts the privacyIDEA database. Could be localhost, the FQDN to the database or an IP.
-
-    websrv_user: 'apache'
 
     pi_logfile: 'privacyidea.log'
     pi_auditfile: 'audit.log'
@@ -113,6 +111,8 @@ How big a log/audit log should be to trigger log rotation
 
 I have to confirm with PrivacyIDEA what these do exactly.
 
+    websrv_user: 'apache'
+
 The username of the webserver user. This user will be added to the pi_linux_user group so the websever process is allowed to read the privacyIDEA files.
 
     superuser_realm: '["super", "administrators"]'
@@ -149,95 +149,103 @@ The username and password of the local privacyIDEA admin. You can use this crede
 None.
 
 ## Example Playbook  
-    ---
-    - name: Converge
-    hosts: privacyidea
-    become: yes
-    vars_files:
-        - vars/selinux.yml
-        - vars/firewall.yml
-    roles: 
-        - geerlingguy.apache 
-        - role: gitarplayer.privacyidea
-        vars:
-            pi_db_hostname: 192.168.56.3
-        - linux-system-roles.selinux
-        - linux-system-roles.firewall
-    tasks:
-        - name: include apache.yml
-        include_vars: vars/apache.yml
-        - name: apply geerlingguy.apache again with vars because of chicken egg problem
-        include_role:
-            name: geerlingguy.apache
+```yaml
+---
+- name: Install privacyIDEA
+hosts: privacyidea
+become: yes
+vars_files:
+    - vars/selinux.yml
+    - vars/firewall.yml
+roles: 
+    - geerlingguy.apache 
+    - role: gitarplayer.privacyidea
+    vars:
+        pi_db_hostname: 192.168.56.3
+    - linux-system-roles.selinux
+    - linux-system-roles.firewall
+tasks:
+    - name: include apache.yml
+    include_vars: vars/apache.yml
+    - name: apply geerlingguy.apache again with vars because of chicken egg problem
+    include_role:
+        name: geerlingguy.apache
+```
 
 *Inside `vars/selinux.yml`*:  
-
-    ---
-    # Use "targeted" SELinux policy type
-    selinux_policy: targeted
-    # Set "enforcing" mode
-    selinux_state: enforcing
-    # Switch some SELinux booleans
-    selinux_booleans:
-    - { name: 'httpd_can_network_connect_db', state: 'on', persistent: 'yes' }
-    - { name: 'httpd_can_connect_ldap', state: 'on', persistent: 'yes' }
-    selinux_fcontexts:
-    - { target: '{{ pi_log_path }}(/.*)?', setype: 'httpd_log_t', ftype: 'a' }
-    - { target: '{{ pi_conf_path }}(/.*)?', setype: 'httpd_config_t', ftype: 'a' }
-    selinux_restore_dirs:
-    - "{{ pi_log_path }}"
-    - "{{ pi_conf_path }}"
+```yaml
+---
+# Use "targeted" SELinux policy type
+selinux_policy: targeted
+# Set "enforcing" mode
+selinux_state: enforcing
+# Switch some SELinux booleans
+selinux_booleans:
+- { name: 'httpd_can_network_connect_db', state: 'on', persistent: 'yes' }
+- { name: 'httpd_can_connect_ldap', state: 'on', persistent: 'yes' }
+selinux_fcontexts:
+- { target: '{{ pi_log_path }}(/.*)?', setype: 'httpd_log_t', ftype: 'a' }
+- { target: '{{ pi_conf_path }}(/.*)?', setype: 'httpd_config_t', ftype: 'a' }
+selinux_restore_dirs:
+- "{{ pi_log_path }}"
+- "{{ pi_conf_path }}"
+```
 
 *Inside `vars/firewall.yml`*:  
-    ---
-    firewall:
-    - service: https
-        state: enabled
+```yaml
+---
+firewall:
+- service: https
+    state: enabled
+```
 
 *Inside `vars/apache.yml`*:  
-    ---
-    apache_vhosts_filename: "privacyidea.conf"
-    apache_global_vhost_settings: |
-    TraceEnable off
-    ServerSignature Off
-    ServerTokens Prod
-    WSGIPythonHome /opt/privacyidea
-    WSGISocketPrefix /var/run/wsgi
-    apache_ssl_cipher_suite: "EECDH+AES256:DHE+AES256:EECDH+AES:EDH+AES:-SHA1:EECDH+RC4:EDH+RC4:RC4-SHA:AES256-SHA:!aNULL:!eNULL:!EXP:!LOW:!MD5"
-    apache_vhosts_ssl:
-    - servername: "privacyidea"
-        documentroot: "/etc/privacyidea"
-        certificate_file: "/etc/pki/tls/certs/localhost.crt"
-        certificate_key_file: "/etc/pki/tls/private/localhost.key"
-        apache_ssl_protocol: "All -SSLv2 -SSLv3"
-        apache_options: "FollowSymLinks"
-        apache_allow_override: "None"
-        extra_parameters: |
-        SSLEngine On
-        SSLHonorCipherOrder On
-        ErrorLog logs/ssl_error_log
-        TransferLog logs/ssl_access_log
-        LogLevel warn
-        WSGIDaemonProcess privacyidea processes=1 threads=15 display-name=%{GROUP} user=privacyidea
-        WSGIProcessGroup privacyidea
-        WSGIPassAuthorization On
-        WSGIScriptAlias / /etc/privacyidea/privacyideaapp.wsgi
-        BrowserMatch "MSIE [2-5]" \
-            nokeepalive ssl-unclean-shutdown \
-            downgrade-1.0 force-response-1.0
-        CustomLog logs/ssl_request_log \
-            "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+```yaml
+---
+apache_vhosts_filename: "privacyidea.conf"
+apache_global_vhost_settings: |
+  TraceEnable off
+  ServerSignature Off
+  ServerTokens Prod
+  WSGIPythonHome /opt/privacyidea
+  WSGISocketPrefix /var/run/wsgi
+apache_ssl_cipher_suite: "EECDH+AES256:DHE+AES256:EECDH+AES:EDH+AES:-SHA1:EECDH+RC4:EDH+RC4:RC4-SHA:AES256-SHA:!aNULL:!eNULL:!EXP:!LOW:!MD5"
+apache_vhosts_ssl:
+- servername: "privacyidea"
+    documentroot: "/etc/privacyidea"
+    certificate_file: "/etc/pki/tls/certs/localhost.crt"
+    certificate_key_file: "/etc/pki/tls/private/localhost.key"
+    apache_ssl_protocol: "All -SSLv2 -SSLv3"
+    apache_options: "FollowSymLinks"
+    apache_allow_override: "None"
+    extra_parameters: |
+      SSLEngine On
+      SSLHonorCipherOrder On
+      ErrorLog logs/ssl_error_log
+      TransferLog logs/ssl_access_log
+      LogLevel warn
+      WSGIDaemonProcess privacyidea processes=1 threads=15 display-name=%{GROUP} user=privacyidea
+      WSGIProcessGroup privacyidea
+      WSGIPassAuthorization On
+      WSGIScriptAlias / /etc/privacyidea/privacyideaapp.wsgi
+      BrowserMatch "MSIE [2-5]" \
+          nokeepalive ssl-unclean-shutdown \
+          downgrade-1.0 force-response-1.0
+      CustomLog logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+```
 
 *Inside `vars/mysql.yml`*:  
-    ---
-    mysql_databases:
-    - name: 'pi'
-    mysql_users: 
-    - name: 'pi'
-        host: '192.168.56.2'
-        password: 'password'
-        priv: 'pi.*:ALL'
-
+```yaml
+---
+mysql_databases:
+- name: 'pi'
+mysql_users: 
+- name: 'pi'
+    host: '192.168.56.2'
+    password: 'password'
+    priv: 'pi.*:ALL'
+```
 You can find all those vars in the default test scenario under molecule/default.
 
 

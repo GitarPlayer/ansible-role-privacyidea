@@ -6,10 +6,25 @@
       - python_version is defined
       - python_version in supported_python_versions
     msg: "{{ python_version }} is not in {{ supported_python_versions }}"
+
 - name: Define python_package_name
   ansible.builtin.set_fact:
     python_binary_name: 'python{{ python_version }}'
     python_package_name: python{{ python_version | regex_replace("(\d)\.(\d)", "\1\2") }}
+
+- name: Define mod_wsgi package name if RHEL8
+  ansible.builtin.set_fact:
+    python_mod_wsgi: "{{ python_package_name }}-mod_wsgi"
+  when: 
+    - ansible_os_family == 'RedHat'
+    - ansible_facts['distribution_major_version'] == "8"
+
+- name: Define mod_wsgi package name if RHEL9
+  ansible.builtin.set_fact:
+    python_mod_wsgi: python3-mod_wsgi # workaround for no appstream 
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_facts['distribution_major_version'] == "9"
 
 - name: Define vars depending if separate_db true
   ansible.builtin.set_fact:
